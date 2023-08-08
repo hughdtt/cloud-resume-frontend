@@ -1,8 +1,18 @@
-# React + Vite
+# Resume frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+React static site deployed to Azure CDN. Fetches data from [web api](https://github.com/hughdtt/cloud-resume-backend).
 
-Currently, two official plugins are available:
+### Task list
+- [x] Create Blob storage, frontdoor CDN profile, cdn endpoint (and attach custom domain)
+- [x] Mockup simple html/css/js static files and upload to blob storage
+- [x] Make sure able to fetch web api and return viewcount to DOM
+- [x] Init react template with vite
+- [x] Git init repo source
+- [ ] Update static site with some fancy features, and fetch web api
+- [ ] Component testing
+- [ ] Deploy yaml
+    - [ ] Test, Build, Deploy to blob
+- [ ] ARM template for infrastructure
+- [ ] Diagrams
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
