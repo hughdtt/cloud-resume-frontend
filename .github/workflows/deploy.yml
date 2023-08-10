@@ -35,14 +35,11 @@ jobs:
       - name: Build dist
         run: npm run build
 
-      - name: Open dist
-        run: cd dist/
-
       - name: Upload to blob storage
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name ${{ secrets.AZURE_RG }} --auth-mode key --overwrite -d '$web' -s ./dist
+            az storage blob upload-batch --account-name ${{ secrets.AZURE_STORAGEACCNAME}} --auth-mode key --overwrite -d '$web' -s ./dist
 
       - name: Purge CDN endpoint
         uses: azure/CLI@v1
