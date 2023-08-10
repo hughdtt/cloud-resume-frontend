@@ -1,45 +1,44 @@
 name: Blob storage website CI
 
 on:
-    push:
-        branches: [ main ]
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Build files
-      uses: npm run build
+      - name: Build dist
+        run: npm install
 
-    - name: Login to Azure
-      uses: azure/login@v1
-      with:
+      - name: Run Jest Tests
+        run: cd dist/
+
+      - name: Log into Azure
+        uses: azure/login@v1
+        with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Deploy ARM resource
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        resourceGroupName: ${{ secrets.AZURE_RG }}
-        template: .github/workflows/main.bicep
-        deploymentMode: Incremental
+      - name: Deploy ARM resource
+        uses: azure/arm-deploy@v1
+        with:
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+          resourceGroupName: ${{ secrets.AZURE_RG }}
+          template: .github/workflows/arm.bicep
+          deploymentMode: Incremental
 
-    - name: Upload to blob storage
-      uses: azure/CLI@v1
-      with:
-        inlineScript: |
-          az storage blob upload-batch --account-name devcrc --auth-mode key -d '$web' -s ./dist/*
-    - name: Purge CDN endpoint
-      uses: azure/CLI@v1
-      with:
-        inlineScript: |
-          az cdn endpoint purge --content-paths  "/*" --profile-name ${{ secret.AZURE_CDN_PROFILE }} --name ${{ secret.AZURE_ENDPOINT }} --resource-group ${{ secrets.AZURE_RG }}
-
-    # Azure logout
-    - name: logout
-      run: |
-        az logout
-      if: always()
+      - name: Upload to blob storage
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az storage blob upload-batch --account-name devcrc --auth-mode key -d '$web' -s .
+      - name: Purge CDN endpoint
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az cdn endpoint purge --content-paths  "/*" --profile-name ${{ secret.AZURE_CDN_PROFILE }} --name ${{ secret.AZURE_ENDPOINT }} --resource-group ${{ secrets.AZURE_RG }}
