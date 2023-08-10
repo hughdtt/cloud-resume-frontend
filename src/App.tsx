@@ -96,8 +96,8 @@ export default function App() {
   }, [])
   return (
     <Container>
-      <Tree name="click me">
-        <Tree name="about">
+      <Tree name="click me" defaultOpen>
+        <Tree name="about" defaultOpen>
           <About />
         </Tree>
         <Tree name="projects">
