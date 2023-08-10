@@ -10,8 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-spring/web": "^9.7.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-use-measure": "^2.1.1",
+    "styled-components": "^6.0.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -21,6 +24,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "typescript": "^5.1.6",
     "vite": "^4.4.5"
   }
 }
