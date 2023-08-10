@@ -8,7 +8,7 @@ export const Container = styled('div')`
   padding: 0;
   overflow: hidden;
   font-family: ui-monospace, monospace;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 21px;
   --webkit-user-select: none;
   user-select: none;

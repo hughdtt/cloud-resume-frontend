@@ -4,7 +4,8 @@ import useMeasure from 'react-use-measure'
 import { Container, Title, Frame, Content, toggle } from './styles'
 import * as Icons from './Components/icons'
 import About from './Components/about'
-// import Projects from './Components/projects'
+import motorbikeImage from './assets/motorbike.PNG'
+import pokemonImage from './assets/pokemon.PNG'
 
 function usePrevious<T>(value: T) {
   const ref = useRef<T>()
@@ -34,7 +35,7 @@ const Tree = React.memo<
   return (
     <Frame>
       <Icon style={{ ...toggle, opacity: children ? 1 : 0.3 }} onClick={() => setOpen(!isOpen)} />
-      <Title style={style}>{name}</Title>
+      <Title style={style}>{isOpen && name === 'click me' ? 'src' : name}</Title>
       <Content
         style={{
           opacity,
@@ -45,9 +46,16 @@ const Tree = React.memo<
     </Frame>
   )
 })
+
+interface MyWindow extends Window {
+  openSesame: () => void;
+}
+
+declare var window: MyWindow;
+
 export default function App() {
-  
   const [viewCount, setViewCount] = useState('')
+  const [secret, setSecret] = useState('')
 
   const getViewcount = async () => {
     const response = await fetch('https://fnappt6c7s57cuv37w.azurewebsites.net/api/CosmosCRUD?code=ZqNwcLOkc3iNHTITf8-bVHgycjI0xIsOYuE-LDnODEboAzFuc4KXzg==')
@@ -55,23 +63,100 @@ export default function App() {
     setViewCount(result.viewCount)
   }
 
-  useEffect(() =>{
+  useEffect(() => {
+    window.openSesame = () => {
+      setSecret('open sesame');
+    };
+  }, []);
+
+  useEffect(() => {
+    const message = secret === 'open sesame'
+      ? `%c
+           c(..)o   (
+          \__(-)    __)
+              /\   (
+            /(_)___)
+           / |
+
+    It's open!`
+      : `%c
+           c(..)o   (
+          \__(-)    __)
+              /\   (
+            /(_)___)
+           / |
+
+    Yo! try running openSesame() :)`;
+
+    console.log(message, 'color: Green; font-size: 16px;');
+  }, [secret]);
+
+  useEffect(() => {
     getViewcount()
   }, [])
   return (
     <Container>
-      <Tree name="src" defaultOpen>
+      <Tree name="click me">
         <Tree name="about">
           <About />
         </Tree>
         <Tree name="projects">
-          {/* <Projects /> */}
+          <Tree name="motorbike-configurator">
+            <div
+              style={{
+                position: 'relative',
+                padding: 10,
+                display: 'flex',
+                flexFlow: 'column wrap'
+              }}>
+              <div
+                  style={{
+                    width: 150,
+                    height: 100,
+                    overflow: 'hidden',
+                    borderRadius: 5,
+                    paddingTop: 5
+                  }}
+                ><img src={motorbikeImage} alt="motorbike" style={{display: "block", width: '100%', height: "auto", borderRadius: 5}}/></div>
+              <span><a href="https://hughdtt.github.io/motorbike-configurator/" target="_blank">Demo</a></span>
+              <span><a href="https://github.com/hughdtt/motorbike-configurator" target="_blank">Source</a></span>
+            </div>
+          </Tree>
+          <Tree name="poke-profiles">
+            <div
+              style={{
+                position: 'relative',
+                padding: 10,
+                display: 'flex',
+                flexFlow: 'column wrap'
+              }}>
+              <div
+                  style={{
+                    width: 150,
+                    height: 100,
+                    overflow: 'hidden',
+                    borderRadius: 5,
+                    paddingTop: 5
+                  }}
+                ><img src={pokemonImage} alt="pokemon" style={{display: "block", width: '100%', height: "auto", borderRadius: 5}}/></div>
+              <span><a href="https://hughdtt.github.io/poke-profiles/" target="_blank">Demo</a></span>
+              <span><a href="https://github.com/hughdtt/poke-profiles" target="_blank">Source</a></span>
+            </div>
+          </Tree>
         </Tree>
-        <Tree name={<span>🙀 secrets</span>} />
-        <Suspense fallback={<Tree name="retrieving views.." />}> 
-          <Tree name={<span>page views: {viewCount} </span>} />
-        </Suspense>
+        <Tree name={<span>🙈 secrets</span>}>
+          {secret === 'open sesame' ? <div
+              style={{
+                position: 'relative',
+                padding: 10,
+                display: 'flex',
+                flexFlow: 'column wrap'
+              }}><span><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">You're welcome</a></span></div>: ''}
       </Tree>
-    </Container>
+      <Suspense fallback={<Tree name="retrieving views.." />}>
+        <Tree name={<span>page views: {viewCount} </span>} />
+      </Suspense>
+    </Tree>
+    </Container >
   )
 }

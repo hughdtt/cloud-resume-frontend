@@ -21,5 +21,8 @@ a{
 }
 a:visited{
   text-decoration: none; 
-  color: lightskyblue;
+  color: rgb(87, 87, 255);
+}
+a:hover{
+  color: rgb(0, 0, 252);
 }

@@ -16,3 +16,4 @@ React static site deployed to Azure CDN. Fetches data from [web api](https://git
         - [ ] Projects grab github pinned repos to showcase and link
         - [ ] Views: fetchs Azure function, make sure it's only grabbing that api once.
 
+- [ ] Refactor, some of this stuff is bad implementation
