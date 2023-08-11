@@ -39,13 +39,13 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload-batch --account-name ${{ secrets.AZURE_STORAGEACCNAME }} --auth-mode key --overwrite -d '$web' -s ./dist
+            az storage blob upload-batch --account-name ${{ secrets.AZURE_STORAGEACCNAME}} --auth-mode key --overwrite -d '$web' -s ./dist
 
       - name: Purge CDN endpoint
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az cdn endpoint purge --resource-group ${{ secrets.AZURE_RG }} --profile-name ${{ secrets.AZURE_CDN_PROFILE }} --name ${{ secrets.AZURE_ENDPOINT }}  --content-paths "/assets/*" "index.html" 
+            az cdn endpoint purge --content-paths "/assets/*" "index.html" --profile-name "dev-cdn-crc" --name "dev-hugh-crc" --resource-group "Dev-CRC"
       
       - name: Azure service principal logout
         run: |
