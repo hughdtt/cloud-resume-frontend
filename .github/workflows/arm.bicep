@@ -8,10 +8,6 @@ resource profiles_dev_cdn_crc_name_resource 'Microsoft.Cdn/profiles@2022-11-01-p
   sku: {
     name: 'Standard_Microsoft'
   }
-  kind: 'cdn'
-  properties: {
-    extendedProperties: {}
-  }
 }
 
 resource storageAccounts_devcrc_name_resource 'Microsoft.Storage/storageAccounts@2022-09-01' = {
@@ -19,7 +15,6 @@ resource storageAccounts_devcrc_name_resource 'Microsoft.Storage/storageAccounts
   location: location
   sku: {
     name: 'Standard_RAGRS'
-    tier: 'Standard'
   }
   kind: 'StorageV2'
   properties: {
@@ -60,7 +55,7 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc 'Microsoft.Cdn/profiles/endpoint
   name: 'dev-hugh-crc'
   location: 'Global'
   properties: {
-    originHostHeader: 'devcrc.z8.web.core.windows.net'
+    originHostHeader: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
     contentTypesToCompress: [
       'application/eot'
       'application/font'
@@ -113,8 +108,8 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc 'Microsoft.Cdn/profiles/endpoint
       {
         name: 'devcrc-z8-web-core-windows-net'
         properties: {
-          hostName: 'devcrc.z8.web.core.windows.net'
-          originHostHeader: 'devcrc.z8.web.core.windows.net'
+          hostName: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
+          originHostHeader: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
           priority: 1
           weight: 1000
           enabled: true
@@ -191,10 +186,6 @@ resource storageAccounts_devcrc_name_default 'Microsoft.Storage/storageAccounts/
 resource Microsoft_Storage_storageAccounts_fileServices_storageAccounts_devcrc_name_default 'Microsoft.Storage/storageAccounts/fileServices@2022-09-01' = {
   parent: storageAccounts_devcrc_name_resource
   name: 'default'
-  sku: {
-    name: 'Standard_RAGRS'
-    tier: 'Standard'
-  }
 }
 
 resource Microsoft_Storage_storageAccounts_queueServices_storageAccounts_devcrc_name_default 'Microsoft.Storage/storageAccounts/queueServices@2022-09-01' = {
@@ -223,24 +214,18 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc_resume_hughdtt_com 'Microsoft.Cd
   properties: {
     hostName: 'resume.hughdtt.com'
   }
-  dependsOn: [
-    profiles_dev_cdn_crc_name_resource
-  ]
 }
 
 resource profiles_dev_cdn_crc_name_dev_hugh_crc_devcrc_z8_web_core_windows_net 'Microsoft.Cdn/profiles/endpoints/origins@2022-11-01-preview' = {
   parent: profiles_dev_cdn_crc_name_dev_hugh_crc
   name: 'devcrc-z8-web-core-windows-net'
   properties: {
-    hostName: 'devcrc.z8.web.core.windows.net'
-    originHostHeader: 'devcrc.z8.web.core.windows.net'
+    hostName: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
+    originHostHeader: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
     priority: 1
     weight: 1000
     enabled: true
   }
-  dependsOn: [
-    profiles_dev_cdn_crc_name_resource
-  ]
 }
 
 resource storageAccounts_devcrc_name_default_web 'Microsoft.Storage/storageAccounts/blobServices/containers@2022-09-01' = {
@@ -254,7 +239,4 @@ resource storageAccounts_devcrc_name_default_web 'Microsoft.Storage/storageAccou
     denyEncryptionScopeOverride: false
     publicAccess: 'None'
   }
-  dependsOn: [
-    storageAccounts_devcrc_name_resource
-  ]
 }
