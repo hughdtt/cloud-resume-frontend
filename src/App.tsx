@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, Suspense } from 'react'
 import { useSpring, a } from '@react-spring/web'
 import useMeasure from 'react-use-measure'
-import { Container, Title, Frame, Content, toggle } from './styles'
+import { Container, Title, Frame, Content, toggle, Social } from './styles'
 import * as Icons from './Components/icons'
 import About from './Components/about'
 import motorbikeImage from './assets/motorbike.PNG'
@@ -33,9 +33,9 @@ const Tree = React.memo<
   // @ts-ignore
   const Icon = Icons[`${children ? (isOpen ? 'Minus' : 'Plus') : 'Close'}SquareO`]
   return (
-    <Frame>
+    <Frame style={{...style, paddingLeft: !isOpen && name === 'click me' ? 150 : 0}}>
       <Icon style={{ ...toggle, opacity: children ? 1 : 0.3 }} onClick={() => setOpen(!isOpen)} />
-      <Title style={style}>{isOpen && name === 'click me' ? 'src' : name}</Title>
+      <Title style={style} onClick={() => setOpen(!isOpen)}>{isOpen && name === 'click me' ? 'src' : name}</Title>
       <Content
         style={{
           opacity,
@@ -109,17 +109,16 @@ export default function App() {
                 display: 'flex',
                 flexFlow: 'column wrap'
               }}>
+              <span><a href="https://hughdtt.github.io/motorbike-configurator/" target="_blank">Demo</a> | <a href="https://github.com/hughdtt/motorbike-configurator" target="_blank">Source</a></span>
               <div
-                  style={{
-                    width: 150,
-                    height: 100,
-                    overflow: 'hidden',
-                    borderRadius: 5,
-                    paddingTop: 5
-                  }}
-                ><img src={motorbikeImage} alt="motorbike" style={{display: "block", width: '100%', height: "auto", borderRadius: 5}}/></div>
-              <span><a href="https://hughdtt.github.io/motorbike-configurator/" target="_blank">Demo</a></span>
-              <span><a href="https://github.com/hughdtt/motorbike-configurator" target="_blank">Source</a></span>
+                style={{
+                  width: 175,
+                  height: 90,
+                  overflow: 'hidden',
+                  borderRadius: 5,
+                  paddingTop: 10
+                }}
+              ><img src={motorbikeImage} alt="motorbike" style={{ display: "block", width: '100%', height: "auto", borderRadius: 5 }} /></div>
             </div>
           </Tree>
           <Tree name="poke-profiles">
@@ -130,33 +129,33 @@ export default function App() {
                 display: 'flex',
                 flexFlow: 'column wrap'
               }}>
+              <span><a href="https://hughdtt.github.io/poke-profiles/" target="_blank">Demo</a> | <a href="https://github.com/hughdtt/poke-profiles" target="_blank">Source</a></span>
               <div
-                  style={{
-                    width: 150,
-                    height: 100,
-                    overflow: 'hidden',
-                    borderRadius: 5,
-                    paddingTop: 5
-                  }}
-                ><img src={pokemonImage} alt="pokemon" style={{display: "block", width: '100%', height: "auto", borderRadius: 5}}/></div>
-              <span><a href="https://hughdtt.github.io/poke-profiles/" target="_blank">Demo</a></span>
-              <span><a href="https://github.com/hughdtt/poke-profiles" target="_blank">Source</a></span>
+                style={{
+                  width: 175,
+                  height: 90,
+                  overflow: 'hidden',
+                  borderRadius: 5,
+                  paddingTop: 10
+                }}
+              ><img src={pokemonImage} alt="pokemon" style={{ display: "block", width: '100%', height: "auto", borderRadius: 5 }} /></div>
             </div>
           </Tree>
         </Tree>
         <Tree name={<span>🙈 secrets</span>}>
           {secret === 'open sesame' ? <div
-              style={{
-                position: 'relative',
-                padding: 10,
-                display: 'flex',
-                flexFlow: 'column wrap'
-              }}><span><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">You're welcome</a></span></div>: ''}
+            style={{
+              position: 'relative',
+              padding: 10,
+              display: 'flex',
+              flexFlow: 'column wrap'
+            }}><span><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">You're welcome</a></span></div> : ''}
+        </Tree>
+        <Suspense fallback={<Tree name="retrieving views.." />}>
+          <Tree name={<span>page views: {viewCount} </span>} />
+        </Suspense>
       </Tree>
-      <Suspense fallback={<Tree name="retrieving views.." />}>
-        <Tree name={<span>page views: {viewCount} </span>} />
-      </Suspense>
-    </Tree>
+      <Social><a href="https://github.com/hughdtt" target="_blank">Github</a> | <a href="https://www.linkedin.com/in/hughdtt/" target="_blank">LinkedIn</a></Social>
     </Container >
   )
 }

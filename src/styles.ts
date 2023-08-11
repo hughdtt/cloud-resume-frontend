@@ -13,6 +13,7 @@ export const Container = styled('div')`
   --webkit-user-select: none;
   user-select: none;
   display: flex;
+  flex-flow: column wrap;
   align-items: center;
   height: 100%;
   justify-content: center;
@@ -31,6 +32,7 @@ export const Frame = styled('div')`
 
 export const Title = styled('span')`
   vertical-align: middle;
+  cursor: pointer;
 `
 
 export const Content = styled(animated.div)`
@@ -48,3 +50,8 @@ export const toggle = {
   cursor: 'pointer',
   verticalAlign: 'middle',
 }
+
+export const Social = styled('div')`
+  position: absolute;
+  bottom: 15px;
+`

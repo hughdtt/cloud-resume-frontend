@@ -1,5 +1,6 @@
 param profiles_dev_cdn_crc_name string = 'dev-cdn-crc'
 param storageAccounts_devcrc_name string = 'devcrc'
+param location string = resourceGroup().location
 
 resource profiles_dev_cdn_crc_name_resource 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   name: profiles_dev_cdn_crc_name
@@ -15,7 +16,7 @@ resource profiles_dev_cdn_crc_name_resource 'Microsoft.Cdn/profiles@2022-11-01-p
 
 resource storageAccounts_devcrc_name_resource 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: storageAccounts_devcrc_name
-  location: 'australiaeast'
+  location: location
   sku: {
     name: 'Standard_RAGRS'
     tier: 'Standard'
