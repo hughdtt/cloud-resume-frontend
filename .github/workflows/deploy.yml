@@ -45,7 +45,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az cdn endpoint purge --content-paths "/assets/*" "index.html" --profile-name "dev-cdn-crc" --name "dev-hugh-crc" --resource-group "Dev-CRC"
+            az cdn endpoint purge --content-paths "/*" --profile-name "dev-cdn-crc" --name "dev-hugh-crc" --resource-group "Dev-CRC"
       
       - name: Azure service principal logout
         run: |
