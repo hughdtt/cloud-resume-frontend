@@ -35,7 +35,7 @@ const Tree = React.memo<
   return (
     <Frame style={{...style, paddingLeft: !isOpen && name === 'click me' ? 150 : 0}}>
       <Icon style={{ ...toggle, opacity: children ? 1 : 0.3 }} onClick={() => setOpen(!isOpen)} />
-      <Title style={style} onClick={() => setOpen(!isOpen)}>{isOpen && name === 'click me' ? 'src' : name}</Title>
+      <Title style={{...style, fontWeight: isOpen ? 'bold' : 'normal' }} onClick={() => setOpen(!isOpen)}>{isOpen && name === 'click me' ? 'src' : name}</Title>
       <Content
         style={{
           opacity,
