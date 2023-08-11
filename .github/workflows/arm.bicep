@@ -195,18 +195,6 @@ resource Microsoft_Storage_storageAccounts_fileServices_storageAccounts_devcrc_n
     name: 'Standard_RAGRS'
     tier: 'Standard'
   }
-  properties: {
-    protocolSettings: {
-      smb: {}
-    }
-    cors: {
-      corsRules: []
-    }
-    shareDeleteRetentionPolicy: {
-      enabled: true
-      days: 7
-    }
-  }
 }
 
 resource Microsoft_Storage_storageAccounts_queueServices_storageAccounts_devcrc_name_default 'Microsoft.Storage/storageAccounts/queueServices@2022-09-01' = {
