@@ -55,7 +55,7 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc 'Microsoft.Cdn/profiles/endpoint
   name: 'dev-hugh-crc'
   location: 'Global'
   properties: {
-    originHostHeader: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
+    originHostHeader: 'devcrc.z8.web.core.windows.net'
     contentTypesToCompress: [
       'application/eot'
       'application/font'
@@ -108,8 +108,8 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc 'Microsoft.Cdn/profiles/endpoint
       {
         name: 'devcrc-z8-web-core-windows-net'
         properties: {
-          hostName: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
-          originHostHeader: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
+          hostName: 'devcrc.z8.web.core.windows.net'
+          originHostHeader: 'devcrc.z8.web.core.windows.net'
           priority: 1
           weight: 1000
           enabled: true
@@ -156,10 +156,6 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc 'Microsoft.Cdn/profiles/endpoint
 resource storageAccounts_devcrc_name_default 'Microsoft.Storage/storageAccounts/blobServices@2022-09-01' = {
   parent: storageAccounts_devcrc_name_resource
   name: 'default'
-  sku: {
-    name: 'Standard_RAGRS'
-    tier: 'Standard'
-  }
   properties: {
     changeFeed: {
       enabled: false
@@ -220,8 +216,8 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc_devcrc_z8_web_core_windows_net '
   parent: profiles_dev_cdn_crc_name_dev_hugh_crc
   name: 'devcrc-z8-web-core-windows-net'
   properties: {
-    hostName: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
-    originHostHeader: storageAccounts_devcrc_name_resource.properties.primaryEndpoints.web
+    hostName: 'devcrc.z8.web.core.windows.net'
+    originHostHeader: 'devcrc.z8.web.core.windows.net'
     priority: 1
     weight: 1000
     enabled: true
