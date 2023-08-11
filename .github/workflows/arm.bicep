@@ -1,6 +1,7 @@
 param profiles_dev_cdn_crc_name string = 'dev-cdn-crc'
 param storageAccounts_devcrc_name string = 'devcrc'
 param location string = resourceGroup().location
+param endpoint string = format('devcrc.z8.web.{0}', environment().suffixes.storage)
 
 resource profiles_dev_cdn_crc_name_resource 'Microsoft.Cdn/profiles@2022-11-01-preview' = {
   name: profiles_dev_cdn_crc_name
@@ -55,7 +56,7 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc 'Microsoft.Cdn/profiles/endpoint
   name: 'dev-hugh-crc'
   location: 'Global'
   properties: {
-    originHostHeader: 'devcrc.z8.web.core.windows.net'
+    originHostHeader: endpoint
     contentTypesToCompress: [
       'application/eot'
       'application/font'
@@ -108,8 +109,8 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc 'Microsoft.Cdn/profiles/endpoint
       {
         name: 'devcrc-z8-web-core-windows-net'
         properties: {
-          hostName: 'devcrc.z8.web.core.windows.net'
-          originHostHeader: 'devcrc.z8.web.core.windows.net'
+          hostName: endpoint
+          originHostHeader: endpoint
           priority: 1
           weight: 1000
           enabled: true
@@ -216,8 +217,8 @@ resource profiles_dev_cdn_crc_name_dev_hugh_crc_devcrc_z8_web_core_windows_net '
   parent: profiles_dev_cdn_crc_name_dev_hugh_crc
   name: 'devcrc-z8-web-core-windows-net'
   properties: {
-    hostName: 'devcrc.z8.web.core.windows.net'
-    originHostHeader: 'devcrc.z8.web.core.windows.net'
+    hostName: endpoint
+    originHostHeader: endpoint
     priority: 1
     weight: 1000
     enabled: true
