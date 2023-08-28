@@ -55,3 +55,9 @@ export const Social = styled('div')`
   position: absolute;
   bottom: 15px;
 `
+export const TreeContent = styled('div')`
+  position: relative;
+  padding: 10px;
+  display: flex;
+  flex-flow: column wrap;
+`
