@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, Suspense } from 'react'
 import { useSpring, a } from '@react-spring/web'
 import useMeasure from 'react-use-measure'
-import { Container, Title, Frame, Content, toggle, Social } from './styles'
+import { Container, Title, Frame, Content, toggle, Social, TreeContent } from './styles'
 import * as Icons from './Components/icons'
 import About from './Components/about'
 import motorbikeImage from './assets/motorbike.PNG'
@@ -33,9 +33,9 @@ const Tree = React.memo<
   // @ts-ignore
   const Icon = Icons[`${children ? (isOpen ? 'Minus' : 'Plus') : 'Close'}SquareO`]
   return (
-    <Frame style={{...style, paddingLeft: !isOpen && name === 'click me' ? 150 : 0}}>
+    <Frame style={{ ...style, paddingLeft: !isOpen && name === 'click me' ? 150 : 0 }}>
       <Icon style={{ ...toggle, opacity: children ? 1 : 0.3 }} onClick={() => setOpen(!isOpen)} />
-      <Title style={{...style, fontWeight: isOpen ? 'bold' : 'normal' }} onClick={() => setOpen(!isOpen)}>{isOpen && name === 'click me' ? 'src' : name}</Title>
+      <Title style={{ ...style, fontWeight: isOpen ? 'bold' : 'normal' }} onClick={() => setOpen(!isOpen)}>{isOpen && name === 'click me' ? 'src' : name}</Title>
       <Content
         style={{
           opacity,
@@ -58,7 +58,7 @@ export default function App() {
   const [secret, setSecret] = useState('')
 
   const getViewcount = async () => {
-    const response = await fetch('https://fnappt6c7s57cuv37w.azurewebsites.net/api/CosmosCRUD?code=ZqNwcLOkc3iNHTITf8-bVHgycjI0xIsOYuE-LDnODEboAzFuc4KXzg==')
+    const response = await fetch('https://fnappt6c7s57cuv37w.azurewebsites.net/api/CosmosCRUD?code=ZqNwcLOkc3iNHTITf8-bVHgycjI0xIsOYuE-LDnODEboAzFuc4KXzg==') //have this point to an api gateway endpoint if need more security
     const result = await response.json()
     setViewCount(result.viewCount)
   }
@@ -102,13 +102,7 @@ export default function App() {
         </Tree>
         <Tree name="projects">
           <Tree name="motorbike-configurator">
-            <div
-              style={{
-                position: 'relative',
-                padding: 10,
-                display: 'flex',
-                flexFlow: 'column wrap'
-              }}>
+            <TreeContent>
               <span><a href="https://hughdtt.github.io/motorbike-configurator/" target="_blank">Demo</a> | <a href="https://github.com/hughdtt/motorbike-configurator" target="_blank">Source</a></span>
               <div
                 style={{
@@ -119,16 +113,10 @@ export default function App() {
                   paddingTop: 10
                 }}
               ><img src={motorbikeImage} alt="motorbike" style={{ display: "block", width: '100%', height: "auto", borderRadius: 5 }} /></div>
-            </div>
+            </TreeContent>
           </Tree>
           <Tree name="poke-profiles">
-            <div
-              style={{
-                position: 'relative',
-                padding: 10,
-                display: 'flex',
-                flexFlow: 'column wrap'
-              }}>
+            <TreeContent>
               <span><a href="https://hughdtt.github.io/poke-profiles/" target="_blank">Demo</a> | <a href="https://github.com/hughdtt/poke-profiles" target="_blank">Source</a></span>
               <div
                 style={{
@@ -139,17 +127,11 @@ export default function App() {
                   paddingTop: 10
                 }}
               ><img src={pokemonImage} alt="pokemon" style={{ display: "block", width: '100%', height: "auto", borderRadius: 5 }} /></div>
-            </div>
+            </TreeContent>
           </Tree>
         </Tree>
         <Tree name={<span>🙈 secrets</span>}>
-          {secret === 'open sesame' ? <div
-            style={{
-              position: 'relative',
-              padding: 10,
-              display: 'flex',
-              flexFlow: 'column wrap'
-            }}><span><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">You're welcome</a></span></div> : ''}
+          {secret === 'open sesame' ? <TreeContent><span><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">You're welcome</a></span></TreeContent> : ''}
         </Tree>
         <Suspense fallback={<Tree name="retrieving views.." />}>
           <Tree name={<span>page views: {viewCount} </span>} />
